@@ -26,7 +26,7 @@ pipeline {
         stage ("Tag & Push to DockerHub") {
             steps {
                 script {
-                    withDockerRegistry(credentialsId: 'docker') {
+                    withDockerRegistry(credentialsId: 'docker-cred') {
                         sh "docker tag netflix sunilmargale/netflix:latest"
                         sh "docker push sunilmargale/netflix:latest"
                     }
@@ -36,7 +36,7 @@ pipeline {
         stage ("Docker Scout Image Analysis ") {
             steps {
                 script {
-                    withDockerRegistry(credentialsId: 'docker') {
+                    withDockerRegistry(credentialsId: 'docker-cred') {
                         sh 'docker-scout quickview sunilmargale/netflix:latest'
                         sh 'docker-scout cves sunilmargale/netflix:latest'
                         sh 'docker-scout recommendations sunilmargale/netflix:latest'
@@ -46,7 +46,7 @@ pipeline {
         }
         stage ("Deploy to Docker Conatiner") {
             steps {
-                sh "docker run -itd --name netflix -p 4000:80 netflix:latest"
+                sh "docker run -itd --name netflix -p 4000:4000 netflix:latest"
             }
         }
     }
