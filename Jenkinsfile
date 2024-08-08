@@ -9,12 +9,12 @@ pipeline {
         }
         stage ("Git Checkout") {
             steps {
-                git branch: 'main', url: 'https://github.com/vijaygiduthuri/Netflix-Clone.git'
+                git branch: 'main', url: 'https://github.com/Sunilmargale/Netflix-project.git'
             }
         }
         stage('OWASP FS SCAN') {
             steps {
-                dependencyCheck additionalArguments: '--scan ./ --disableYarnAudit --disableNodeAudit', odcInstallation: 'DP-Check'
+                dependencyCheck additionalArguments: '--scan ./ --disableYarnAudit --disableNodeAudit', odcInstallation: 'DP'
                 dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
             }
         }
@@ -27,8 +27,8 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'docker') {
-                        sh "docker tag netflix vijaygiduthuri/netflix:latest"
-                        sh "docker push vijaygiduthuri/netflix:latest"
+                        sh "docker tag netflix sunilmargale/netflix:latest"
+                        sh "docker push sunilmargale/netflix:latest"
                     }
                 }
             }
