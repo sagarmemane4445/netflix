@@ -37,9 +37,9 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'docker-cred') {
-                        sh 'docker scout quickview sunilmargale/netflix:latest'
-                        sh 'docker scout cves sunilmargale/netflix:latest'
-                        sh 'docker scout recommendations sunilmargale/netflix:latest'
+                        sh 'docker-scout quickview sunilmargale/netflix:latest'
+                        sh 'docker-scout cves sunilmargale/netflix:latest'
+                        sh 'docker-scout recommendations sunilmargale/netflix:latest'
                     }
                 }
             }
