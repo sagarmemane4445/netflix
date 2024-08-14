@@ -36,7 +36,7 @@ pipeline {
         
         stage ("Deploy to Docker Conatiner") {
             steps {
-                sh "docker run -dp --name netflix -p 4000:4000 netflix:latest"
+                sh "docker run -dp 4000:4000 netflix:latest"
             }
         }
     }
