@@ -9,12 +9,12 @@ pipeline {
         }
         stage ("Git Checkout") {
             steps {
-                git branch: 'main', url: 'https://github.com/Sunilmargale/Netflix-project.git'
+                git branch: 'main', url: 'https://github.com/sagarmemane4445/netflix.git'
             }
         }
         stage('OWASP FS SCAN') {
             steps {
-                dependencyCheck additionalArguments: '--scan ./ --disableYarnAudit --disableNodeAudit', odcInstallation: 'DC'
+                dependencyCheck additionalArguments: '--scan ./ --disableYarnAudit --disableNodeAudit', odcInstallation: 'DP-Check'
                 dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
             }
         }
@@ -27,8 +27,8 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'docker-cred') {
-                        sh "docker tag netflix sunilmargale/netflix:latest"
-                        sh "docker push sunilmargale/netflix:latest"
+                        sh "docker tag netflix sagar4445/netflix:latest"
+                        sh "docker push sagar4445/netflix:latest"
                     }
                 }
             }
@@ -37,9 +37,9 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'docker-cred') {
-                        sh 'docker-scout quickview sunilmargale/netflix:latest'
-                        sh 'docker-scout cves sunilmargale/netflix:latest'
-                        sh 'docker-scout recommendations sunilmargale/netflix:latest'
+                        sh 'docker-scout quickview sagar4445/netflix:latest'
+                        sh 'docker-scout cves sagar4445/netflix:latest'
+                        sh 'docker-scout recommendations sagar4445/netflix:latest'
                     }
                 }
             }
