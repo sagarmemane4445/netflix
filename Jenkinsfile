@@ -33,17 +33,7 @@ pipeline {
                 }
             }
         }
-        stage ("Docker Scout Image Analysis ") {
-            steps {
-                script {
-                    withDockerRegistry(credentialsId: 'docker-cred') {
-                        sh 'docker-scout quickview sagar4445/netflix:latest'
-                        sh 'docker-scout cves sagar4445/netflix:latest'
-                        sh 'docker-scout recommendations sagar4445/netflix:latest'
-                    }
-                }
-            }
-        }
+        
         stage ("Deploy to Docker Conatiner") {
             steps {
                 sh "docker run -itd --name netflix -p 4000:4000 netflix:latest"
